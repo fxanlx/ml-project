@@ -184,8 +184,8 @@ _ค่าในตาราง = CV macro-F1 ที่ดีที่สุด�
 
 ### 1. Clone และติดตั้งแพ็กเกจ
 ```bash
-git clone <URL ของ repository นี้>
-cd <ชื่อโฟลเดอร์ repository>
+git clone https://github.com/fxanlx/ml-project.git
+cd ml-project
 python -m venv .venv
 ```
 เปิดใช้ virtual environment:
