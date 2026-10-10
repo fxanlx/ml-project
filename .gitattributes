@@ -1,0 +1,5 @@
+# Normalize line endings for text files; mark images and model files as binary
+* text=auto
+*.jpg binary
+*.png binary
+*.joblib binary

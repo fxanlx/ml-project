@@ -1,0 +1,10 @@
+# CPU-only PyTorch build (smaller download; the app does not need a GPU)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1
+torchvision==0.29.1
+# scikit-learn must match the version used to save model.joblib
+scikit-learn==1.9.1
+numpy==2.5.2
+pillow==12.3.0
+joblib==1.6.0
+gradio==6.30.0

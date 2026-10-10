@@ -1,0 +1,15 @@
+# Python / environments
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Cached CNN features (regenerated automatically by the notebook)
+image_classification/features_cache/
+
+# Gradio
+.gradio/
+flagged/
+
+# Local editor/agent settings
+.claude/

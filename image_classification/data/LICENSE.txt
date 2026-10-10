@@ -1,0 +1,21 @@
+The images in this folder are derived from:
+
+    The Oxford-IIIT Pet Dataset
+    Omkar M. Parkhi, Andrea Vedaldi, Andrew Zisserman, C. V. Jawahar
+    Visual Geometry Group, University of Oxford
+    https://www.robots.ox.ac.uk/~vgg/data/pets/
+
+Original license:
+    Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+    https://creativecommons.org/licenses/by-sa/4.0/
+    "The copyright remains with the original owners of the images."
+
+Changes made: images were converted to RGB and resized so the longest side is
+at most 320 px (see ../scripts/prepare_data.py). The train/test split follows the
+official trainval.txt / test.txt files.
+
+This modified version is distributed under the same license, CC BY-SA 4.0.
+
+Citation:
+    O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar,
+    "Cats and Dogs", IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2012.
