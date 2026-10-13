@@ -18,6 +18,9 @@
 | Regression App | _TODO: ใส่ URL_ |
 | Image Classification App — Pet Breed Classifier | https://franknakub--pet-breed-classifier-ui.us-east.modal.run |
 
+> ⏳ **เปิดครั้งแรกอาจต้องรอประมาณ 30–60 วินาที** — เครื่องที่รันแอปจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที การเปิดครั้งถัดไปจึงต้องรอเครื่องเปิดก่อน (ระหว่างนั้นหน้าเว็บขึ้น "Loading...") จากนั้นทำนายภาพละไม่กี่วินาที
+> ถ้าเปิดเว็บไม่ได้ ดูหัวข้อ [กรณีเปิดเว็บไม่ได้](#กรณีเปิดเว็บไม่ได้)
+
 ## 📁 โครงสร้างไฟล์และโฟลเดอร์
 ```
 .
@@ -229,13 +232,36 @@ python image_classification/scripts/prepare_data.py --raw-dir <โฟลเด�
 ## 🚀 การเผยแพร่เว็บแอป
 แอป Image Classification เผยแพร่บน **[Modal](https://modal.com)** (CPU 1 core, RAM 2 GB) ที่ https://franknakub--pet-breed-classifier-ui.us-east.modal.run
 
-- ใช้ไฟล์ใน `image_classification/app/` โดยไม่แก้ไข: [`scripts/modal_app.py`](scripts/modal_app.py) สร้างเครื่องตาม `app/requirements.txt` แล้วเปิดแอป Gradio จาก `app.py`
-- เครื่องจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที **การเปิดครั้งแรกหลังจากนั้นต้องรอประมาณ 30 วินาที** แล้วการทำนายแต่ละภาพใช้เวลาไม่กี่วินาที
-- เผยแพร่ใหม่ (ต้องติดตั้ง `pip install modal` และล็อกอินด้วย `modal setup` ก่อน):
+- ใช้ไฟล์ใน `image_classification/app/` โดยไม่แก้ไข: [`scripts/modal_app.py`](scripts/modal_app.py) สร้างเครื่องตาม `app/requirements.txt` ใส่ weights ของ ConvNeXt-Tiny ไว้ในเครื่องตั้งแต่ตอน build แล้วเปิดแอป Gradio จาก `app.py`
+- เครื่องจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที (ประหยัดเครดิต) **การเปิดครั้งแรกหลังจากนั้นจึงต้องรอประมาณ 30–60 วินาที**
+- ไม่ได้ใช้ Hugging Face Spaces เพราะการโฮสต์แอป Gradio บน Spaces ต้องใช้บัญชี PRO (ไฟล์ `app/README.md` ยังมีค่าตั้ง Space ไว้ ถ้าจะย้ายไปใช้ภายหลัง)
 
-```bash
-modal deploy scripts/modal_app.py
-```
+### วิธี deploy
+1. สมัครบัญชีที่ https://modal.com (ล็อกอินด้วย GitHub ได้)
+2. ติดตั้งแพ็กเกจของโปรเจกต์ตามหัวข้อ "การติดตั้งและรันบนเครื่อง" แล้วติดตั้ง Modal:
+   ```bash
+   pip install modal
+   ```
+3. ล็อกอิน (เปิดหน้าเบราว์เซอร์ให้กดยืนยัน ทำครั้งเดียว):
+   ```bash
+   modal setup
+   ```
+4. deploy จากโฟลเดอร์หลักของโปรเจกต์:
+   ```bash
+   modal deploy scripts/modal_app.py
+   ```
+   คำสั่งจะแสดง URL ของแอป (`https://<ชื่อบัญชี>--pet-breed-classifier-ui.<region>.modal.run`) และ deploy ซ้ำจะได้ URL เดิม
+   ครั้งแรกใช้เวลาประมาณ 2 นาที (ติดตั้ง PyTorch) ครั้งต่อไปไม่กี่วินาที
+
+> แก้ไฟล์ใน `image_classification/app/` แล้วต้อง deploy ใหม่ แอปออนไลน์จึงจะเปลี่ยนตาม เพราะ Modal รันจากสำเนาไฟล์ตอน deploy ไม่ได้ดึงโค้ดจาก GitHub
+
+### กรณีเปิดเว็บไม่ได้
+| อาการ | สาเหตุ / วิธีแก้ |
+|---|---|
+| ขึ้น "Loading..." นาน | เครื่องกำลังเปิด (ปิดเองเมื่อไม่มีผู้ใช้ 2 นาที) รอ 30–60 วินาที แล้วรีเฟรชหน้า |
+| ขึ้น error หรือเปิดไม่ได้เลย | เครดิตของบัญชี Modal อาจหมด หรือแอปถูกหยุด — เจ้าของบัญชีตรวจที่ modal.com → Apps → `pet-breed-classifier` (แท็บ Logs) แล้ว deploy ใหม่ด้วยคำสั่งข้อ 4 |
+| ยังเปิดไม่ได้ | รันแอปบนเครื่องแทน: ติดตั้งตามหัวข้อ "การติดตั้งและรันบนเครื่อง" แล้วรัน `python image_classification/app/app.py` และเปิด http://localhost:7860 (แบบจำลองและโค้ดเดียวกับบนเว็บ) |
+| อยากมีแอปของตัวเอง | deploy ด้วยบัญชี Modal ของตัวเองตาม "วิธี deploy" จะได้ URL ใหม่ (อย่าลืมแก้ URL ในตาราง "เว็บแอปพลิเคชัน") |
 
 ## 📚 อ้างอิง
 - O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar. *Cats and Dogs.* IEEE CVPR, 2012. — The Oxford-IIIT Pet Dataset (CC BY-SA 4.0)
