@@ -16,13 +16,15 @@
 | แอป | URL |
 |---|---|
 | Regression App | _TODO: ใส่ URL_ |
-| Image Classification App — Pet Breed Classifier | _TODO: ใส่ URL ของ Hugging Face Space_ |
+| Image Classification App — Pet Breed Classifier | https://franknakub--pet-breed-classifier-ui.us-east.modal.run |
 
 ## 📁 โครงสร้างไฟล์และโฟลเดอร์
 ```
 .
 ├── README.md                     ← ไฟล์นี้
 ├── requirements.txt              ← แพ็กเกจทั้งหมดสำหรับรัน notebook และแอปบนเครื่อง
+├── scripts/
+│   └── modal_app.py              ← เผยแพร่แอปขึ้น Modal (ดูหัวข้อ "การเผยแพร่เว็บแอป")
 ├── regression/                   ← ส่วนที่ 1: Regression (TODO)
 └── image_classification/         ← ส่วนที่ 2: Image Classification
     ├── data/
@@ -35,13 +37,13 @@
     │   └── prepare_data.py           ← ดาวน์โหลด/ย่อภาพ/แบ่งชุดข้อมูล (สร้าง data/ ซ้ำได้เหมือนเดิม)
     ├── notebooks/
     │   └── image_classification.ipynb  ← สำรวจข้อมูล ฝึก ประเมิน วิเคราะห์ข้อผิดพลาด และบันทึกแบบจำลอง
-    └── app/                          ← เว็บแอป (โฟลเดอร์นี้อัปโหลดขึ้น Hugging Face Spaces ได้ทันที)
+    └── app/                          ← เว็บแอป (โฟลเดอร์นี้คือทั้งหมดที่ใช้ตอนเผยแพร่)
         ├── app.py                    ← ซอร์สโค้ด Gradio
         ├── feature_extractor.py      ← ขั้นตอนเตรียมภาพ + สกัดคุณลักษณะ (ใช้ร่วมกันทั้ง notebook และแอป)
         ├── model.joblib              ← แบบจำลองที่ฝึกและบันทึกไว้
         ├── examples/                 ← ภาพตัวอย่างข้อมูลนำเข้า
         ├── requirements.txt          ← แพ็กเกจที่แอปต้องใช้
-        └── README.md                 ← ค่าตั้ง Hugging Face Space
+        └── README.md                 ← คำอธิบายแอป (และค่าตั้งถ้าจะเผยแพร่บน Hugging Face Spaces)
 ```
 
 ---
@@ -168,16 +170,18 @@ _ค่าในตาราง = CV macro-F1 ที่ดีที่สุด�
 
 ### วิธีใช้งานแอป
 1. เปิด URL ของแอป (ตารางด้านบน)
-2. อัปโหลดรูปสุนัขหรือแมว (ลากไฟล์มาวาง / คลิกเลือกไฟล์ / ถ่ายจากกล้อง) **หรือคลิกภาพในหัวข้อ "ตัวอย่างข้อมูลนำเข้า"**
-3. กด **ทำนายสายพันธุ์** → แอปแสดงสายพันธุ์ ชนิดสัตว์ (แมว/สุนัข) ความมั่นใจ และ 3 อันดับที่เป็นไปได้มากที่สุด
+2. อัปโหลดรูปสุนัขหรือแมว (ลากไฟล์มาวาง / คลิกเลือกไฟล์ / ถ่ายจากกล้อง) **หรือคลิกภาพในหัวข้อ "Try an example"**
+3. กด **🐾 Predict breed** → แอปแสดงสายพันธุ์ ชนิดสัตว์ (cat/dog) ความมั่นใจ และ 3 อันดับที่เป็นไปได้มากที่สุด (Top 3 matches)
+
+หน้าแอปเป็นภาษาอังกฤษ
 
 **ตัวอย่างข้อมูลนำเข้า:** ไฟล์ภาพ JPG/PNG/WEBP ที่มีสุนัขหรือแมว 1 ตัว เช่น ภาพใน [`image_classification/app/examples/`](image_classification/app/examples/)
 
 | ข้อมูลนำเข้า | ผลลัพธ์ที่ได้ |
 |---|---|
-| [`examples/Persian.jpg`](image_classification/app/examples/Persian.jpg) | 🐱 **Persian** (แมว) — ความมั่นใจ 99% |
-| [`examples/beagle.jpg`](image_classification/app/examples/beagle.jpg) | 🐶 **Beagle** (สุนัข) — ความมั่นใจ 99% |
-| ภาพที่ไม่ใช่สุนัข/แมว | ความมั่นใจต่ำ + ⚠️ คำเตือนว่าผลอาจไม่ถูกต้อง |
+| [`examples/Persian.jpg`](image_classification/app/examples/Persian.jpg) | 🐱 **Persian** — Looks like a **cat** · confidence **99%** |
+| [`examples/beagle.jpg`](image_classification/app/examples/beagle.jpg) | 🐶 **Beagle** — Looks like a **dog** · confidence **99%** |
+| ภาพที่ไม่ใช่สุนัข/แมว | ความมั่นใจต่ำ + ⚠️ คำเตือน **Low confidence** ว่าผลอาจไม่ถูกต้อง |
 
 ---
 
@@ -223,8 +227,15 @@ python image_classification/scripts/prepare_data.py --raw-dir <โฟลเด�
 ---
 
 ## 🚀 การเผยแพร่เว็บแอป
-แอป Image Classification เผยแพร่บน **Hugging Face Spaces** (Gradio SDK, CPU basic):
-อัปโหลดไฟล์ทั้งหมดใน `image_classification/app/` ขึ้น Space — ไฟล์ `README.md` ในโฟลเดอร์นั้นมีค่าตั้ง Space (SDK, เวอร์ชัน Python) แล้ว
+แอป Image Classification เผยแพร่บน **[Modal](https://modal.com)** (CPU 1 core, RAM 2 GB) ที่ https://franknakub--pet-breed-classifier-ui.us-east.modal.run
+
+- ใช้ไฟล์ใน `image_classification/app/` โดยไม่แก้ไข: [`scripts/modal_app.py`](scripts/modal_app.py) สร้างเครื่องตาม `app/requirements.txt` แล้วเปิดแอป Gradio จาก `app.py`
+- เครื่องจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที **การเปิดครั้งแรกหลังจากนั้นต้องรอประมาณ 30 วินาที** แล้วการทำนายแต่ละภาพใช้เวลาไม่กี่วินาที
+- เผยแพร่ใหม่ (ต้องติดตั้ง `pip install modal` และล็อกอินด้วย `modal setup` ก่อน):
+
+```bash
+modal deploy scripts/modal_app.py
+```
 
 ## 📚 อ้างอิง
 - O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar. *Cats and Dogs.* IEEE CVPR, 2012. — The Oxford-IIIT Pet Dataset (CC BY-SA 4.0)
