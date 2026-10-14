@@ -15,6 +15,7 @@
 ## 🌐 เว็บแอปพลิเคชัน
 | แอป | URL |
 |---|---|
+| Regression App — Seoul Bike Demand ([repository](https://github.com/Sh080205/seoul-bike-demand-app)) | https://sh080205--seoul-bike-demand.us-east.modal.run |
 | Image Classification App — Pet Breed Classifier | https://franknakub--pet-breed-classifier-ui.us-east.modal.run |
 
 > ⏳ **เปิดครั้งแรกอาจต้องรอประมาณ 30–60 วินาที** — เครื่องที่รันแอปจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที การเปิดครั้งถัดไปจึงต้องรอเครื่องเปิดก่อน (ระหว่างนั้นหน้าเว็บขึ้น "Loading...") จากนั้นทำนายภาพละไม่กี่วินาที
