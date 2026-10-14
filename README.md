@@ -1,6 +1,8 @@
-# โครงการ Machine Learning: Regression & Image Classification
+# Image Classification: จำแนกสายพันธุ์สุนัขและแมว (Pet Breed Classifier)
 
-โครงการพัฒนาแบบจำลอง Machine Learning 2 งาน ตั้งแต่เตรียมข้อมูล ฝึกและประเมินแบบจำลอง จนถึงเผยแพร่เป็นเว็บแอปพลิเคชันด้วย Gradio
+โครงการพัฒนาแบบจำลองจำแนกประเภทรูปภาพ ตั้งแต่เตรียมข้อมูล ฝึกและประเมินแบบจำลอง จนถึงเผยแพร่เป็นเว็บแอปพลิเคชันด้วย Gradio
+
+> ส่วน Regression Model ของกลุ่มส่งแยกใน repository อื่น
 
 ## 👥 ผู้จัดทำ
 <!-- เรียงตามรหัสนิสิตจากน้อยไปมาก -->
@@ -15,7 +17,6 @@
 ## 🌐 เว็บแอปพลิเคชัน
 | แอป | URL |
 |---|---|
-| Regression App | _TODO: ใส่ URL_ |
 | Image Classification App — Pet Breed Classifier | https://franknakub--pet-breed-classifier-ui.us-east.modal.run |
 
 > ⏳ **เปิดครั้งแรกอาจต้องรอประมาณ 30–60 วินาที** — เครื่องที่รันแอปจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที การเปิดครั้งถัดไปจึงต้องรอเครื่องเปิดก่อน (ระหว่างนั้นหน้าเว็บขึ้น "Loading...") จากนั้นทำนายภาพละไม่กี่วินาที
@@ -28,8 +29,7 @@
 ├── requirements.txt              ← แพ็กเกจทั้งหมดสำหรับรัน notebook และแอปบนเครื่อง
 ├── scripts/
 │   └── modal_app.py              ← เผยแพร่แอปขึ้น Modal (ดูหัวข้อ "การเผยแพร่เว็บแอป")
-├── regression/                   ← ส่วนที่ 1: Regression (TODO)
-└── image_classification/         ← ส่วนที่ 2: Image Classification
+└── image_classification/         ← งาน Image Classification ทั้งหมด
     ├── data/
     │   ├── train/<สายพันธุ์>/*.jpg    ← ชุดฝึก 3,680 ภาพ
     │   ├── test/<สายพันธุ์>/*.jpg     ← ชุดทดสอบ 3,669 ภาพ
@@ -51,13 +51,7 @@
 
 ---
 
-## ส่วนที่ 1: Regression Model
-
-> _TODO_
-
----
-
-## ส่วนที่ 2: Image Classification — จำแนกสายพันธุ์สุนัขและแมว
+## Image Classification — จำแนกสายพันธุ์สุนัขและแมว
 
 ### แนวคิด ปัญหา และประโยชน์
 ผู้เลี้ยงสัตว์ ผู้ที่จะรับเลี้ยง หรือสถานพักพิงสัตว์ มักไม่แน่ใจว่าสุนัขหรือแมวเป็นสายพันธุ์อะไร ทั้งที่สายพันธุ์บอกข้อมูลสำคัญ
