@@ -188,8 +188,8 @@ _ค่าในตาราง = CV macro-F1 ที่ดีที่สุด�
 
 ### 1. Clone และติดตั้งแพ็กเกจ
 ```bash
-git clone https://github.com/fxanlx/ml-project.git
-cd ml-project
+git clone https://github.com/fxanlx/pet-breed-classifier.git
+cd pet-breed-classifier
 python -m venv .venv
 ```
 เปิดใช้ virtual environment:
