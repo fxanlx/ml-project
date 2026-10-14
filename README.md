@@ -2,7 +2,7 @@
 
 โครงการพัฒนาแบบจำลองจำแนกประเภทรูปภาพ ตั้งแต่เตรียมข้อมูล ฝึกและประเมินแบบจำลอง จนถึงเผยแพร่เป็นเว็บแอปพลิเคชันด้วย Gradio
 
-> repository นี้มีเฉพาะส่วน **Image Classification** — ส่วน Regression Model ของกลุ่มส่งแยกใน repository อื่น
+> repository นี้มีเฉพาะส่วน **Image Classification** — ส่วน **Regression Model** (ทำนายยอดเช่าจักรยานรายชั่วโมงในโซล) ของกลุ่มอยู่ที่ repository https://github.com/Sh080205/seoul-bike-demand-app
 
 ## 👥 ผู้จัดทำ
 <!-- เรียงตามรหัสนิสิตจากน้อยไปมาก -->
@@ -17,6 +17,7 @@
 ## 🌐 เว็บแอปพลิเคชัน
 | แอป | URL |
 |---|---|
+| Regression App — Seoul Bike Demand (repo: [Sh080205/seoul-bike-demand-app](https://github.com/Sh080205/seoul-bike-demand-app)) | https://sh080205--seoul-bike-demand.us-east.modal.run |
 | Image Classification App — Pet Breed Classifier | https://franknakub--pet-breed-classifier-ui.us-east.modal.run |
 
 > ⏳ **เปิดครั้งแรกอาจต้องรอประมาณ 30–60 วินาที** — เครื่องที่รันแอปจะปิดเองเมื่อไม่มีผู้ใช้ 2 นาที การเปิดครั้งถัดไปจึงต้องรอเครื่องเปิดก่อน (ระหว่างนั้นหน้าเว็บขึ้น "Loading...") จากนั้นทำนายภาพละไม่กี่วินาที
